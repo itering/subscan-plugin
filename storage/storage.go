@@ -9,7 +9,7 @@ import (
 type Dao interface {
 	DB() *gorm.DB
 	SpecialMetadata(int) string
-	RPCPool() *websocket.Pool
+	RPCPool() *websocket.PoolConn
 }
 
 type Block struct {

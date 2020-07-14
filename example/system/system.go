@@ -2,9 +2,9 @@ package main
 
 import (
 	bm "github.com/go-kratos/kratos/pkg/net/http/blademaster"
+	"github.com/itering/subscan-plugin/example/system/model"
+	"github.com/itering/subscan-plugin/example/system/service"
 	"github.com/itering/subscan-plugin/storage"
-	"github.com/itering/subscan-plugin/system/model"
-	"github.com/itering/subscan-plugin/system/service"
 	"github.com/itering/subscan-plugin/tools"
 	"github.com/shopspring/decimal"
 )

@@ -1,9 +1,9 @@
 package service
 
 import (
+	"github.com/itering/subscan-plugin/example/system/dao"
+	"github.com/itering/subscan-plugin/example/system/model"
 	"github.com/itering/subscan-plugin/storage"
-	"github.com/itering/subscan-plugin/system/dao"
-	"github.com/itering/subscan-plugin/system/model"
 	"github.com/itering/subscan-plugin/tools"
 	"github.com/itering/substrate-api-rpc"
 )

@@ -28,7 +28,7 @@ func (a *{{.ModClass}}) InitHttp() []router.Http{
 	return http.Router(srv)
 }
 
-func (a *{{.ModClass}}) ProcessExtrinsic(block *storage.Block, extrinsic *storage.Extrinsic, events []storage.Event)) error {
+func (a *{{.ModClass}}) ProcessExtrinsic(block *storage.Block, extrinsic *storage.Extrinsic, events []storage.Event) error {
 	return nil
 }
 
@@ -41,4 +41,8 @@ func (a *{{.ModClass}}) Migrate() {
 	db.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(
 	)
 
+}
+
+func (a *{{.ModClass}}) Version() string {
+	return "0.1"
 }

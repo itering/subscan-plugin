@@ -1,8 +1,8 @@
 package main
 
 import (
-	bm "github.com/go-kratos/kratos/pkg/net/http/blademaster"
 	"github.com/itering/subscan-plugin/storage"
+	"github.com/itering/subscan-plugin/router"
     "{{.Name}}/http"
     "{{.Name}}/service"
 	"github.com/shopspring/decimal"
@@ -12,7 +12,6 @@ var srv *service.Service
 
 type {{.ModClass}} struct {
 	d storage.Dao
-	e *bm.Engine
 }
 
 func New() *{{.ModClass}} {
@@ -24,13 +23,9 @@ func (a *{{.ModClass}}) InitDao(d storage.Dao) {
 	a.d = d
 	a.Migrate()
 }
-func (a *{{.ModClass}}) InitHttp(e *bm.Engine) {
-	a.e = e
-}
 
-func (a *{{.ModClass}}) Http() error {
-	http.Router(srv, a.e)
-	return nil
+func (a *{{.ModClass}}) InitHttp() []router.Http{
+	return http.Router(srv)
 }
 
 func (a *{{.ModClass}}) ProcessExtrinsic(block *storage.Block, extrinsic *storage.Extrinsic, events []storage.Event)) error {

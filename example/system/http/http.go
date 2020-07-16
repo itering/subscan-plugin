@@ -1,9 +1,9 @@
 package http
 
 import (
-	"{{.Name}}/service"
-    "github.com/itering/subscan-plugin/router"
-    "net/http"
+	"github.com/itering/subscan-plugin/example/system/service"
+	"github.com/itering/subscan-plugin/router"
+	"net/http"
 )
 
 var (

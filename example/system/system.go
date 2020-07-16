@@ -1,9 +1,10 @@
 package main
 
 import (
-	bm "github.com/go-kratos/kratos/pkg/net/http/blademaster"
+	"github.com/itering/subscan-plugin/example/system/http"
 	"github.com/itering/subscan-plugin/example/system/model"
 	"github.com/itering/subscan-plugin/example/system/service"
+	"github.com/itering/subscan-plugin/router"
 	"github.com/itering/subscan-plugin/storage"
 	"github.com/itering/subscan-plugin/tools"
 	"github.com/shopspring/decimal"
@@ -13,7 +14,6 @@ var srv *service.Service
 
 type System struct {
 	d storage.Dao
-	e *bm.Engine
 }
 
 func New() *System {
@@ -25,8 +25,9 @@ func (a *System) InitDao(d storage.Dao) {
 	a.d = d
 	a.Migrate()
 }
-func (a *System) InitHttp(e *bm.Engine) {
-	a.e = e
+
+func (a *System) InitHttp() (routers []router.Http) {
+	return http.Router(srv)
 }
 
 func (a *System) ProcessExtrinsic(block *storage.Block, extrinsic *storage.Extrinsic, events []storage.Event) error {
@@ -49,4 +50,8 @@ func (a *System) Migrate() {
 		&model.ExtrinsicError{},
 	)
 	db.Model(model.ExtrinsicError{}).AddUniqueIndex("extrinsic_hash", "extrinsic_hash")
+}
+
+func (a *System) Version() string {
+	return "0.1"
 }

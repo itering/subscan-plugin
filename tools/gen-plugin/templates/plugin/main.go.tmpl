@@ -37,10 +37,6 @@ func (a *{{.ModClass}}) ProcessEvent(block *storage.Block, event *storage.Event,
 }
 
 func (a *{{.ModClass}}) Migrate() {
-	db := a.d.DB()
-	db.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(
-	)
-
 }
 
 func (a *{{.ModClass}}) Version() string {

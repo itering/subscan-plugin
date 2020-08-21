@@ -7,3 +7,9 @@ type ExtrinsicError struct {
 	Name          string `json:"name"`
 	Doc           string `json:"doc"`
 }
+
+type MetadataModuleError struct {
+	Module string   `json:"module"`
+	Name   string   `json:"name"`
+	Doc    []string `json:"doc"`
+}

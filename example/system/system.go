@@ -45,11 +45,9 @@ func (a *System) ProcessEvent(block *storage.Block, event *storage.Event, fee de
 }
 
 func (a *System) Migrate() {
-	db := a.d.DB()
-	db.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(
-		&model.ExtrinsicError{},
-	)
-	db.Model(model.ExtrinsicError{}).AddUniqueIndex("extrinsic_hash", "extrinsic_hash")
+	db := a.d
+	db.AutoMigration(&model.ExtrinsicError{})
+	db.AddUniqueIndex(&model.ExtrinsicError{}, "extrinsic_hash", "extrinsic_hash")
 }
 
 func (a *System) Version() string {

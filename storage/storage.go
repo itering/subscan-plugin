@@ -2,14 +2,30 @@ package storage
 
 import (
 	"github.com/itering/substrate-api-rpc/websocket"
-	"github.com/jinzhu/gorm"
 	"github.com/shopspring/decimal"
 )
 
 type Dao interface {
-	DB() *gorm.DB
+	DB
 	SpecialMetadata(int) string
 	RPCPool() *websocket.PoolConn
+}
+
+// DB interface
+type DB interface {
+	// Can query database all tables data
+	// query
+	FindBy(record interface{}, query interface{}) bool
+
+	// Only can exec plugin relate tables
+	// Migration
+	AutoMigration(model interface{})
+	AddIndex(model interface{}, indexName string, columns ...string)
+	AddUniqueIndex(model interface{}, indexName string, columns ...string)
+
+	Create(record interface{}) error
+	Update(model interface{}, query map[string]interface{}, attr map[string]interface{}) error
+	Delete(model interface{}, query map[string]interface{}) error
 }
 
 type Block struct {
@@ -39,22 +55,20 @@ type Extrinsic struct {
 type Event struct {
 	BlockNum      int    `json:"block_num"`
 	ExtrinsicIdx  int    `json:"extrinsic_idx"`
-	ModuleId      string `json:"module_id" `
-	EventId       string `json:"event_id" `
-	Params        []byte `json:"params" sql:"type:text;" `
-	ExtrinsicHash string `json:"extrinsic_hash" sql:"default: null" `
+	ModuleId      string `json:"module_id"`
+	EventId       string `json:"event_id"`
+	Params        []byte `json:"params"`
+	ExtrinsicHash string `json:"extrinsic_hash"`
 	EventIdx      int    `json:"event_idx"`
 }
 
 type ExtrinsicParam struct {
-	Name     string      `json:"name"`
-	Type     string      `json:"type"`
-	Value    interface{} `json:"value"`
-	ValueRaw string      `json:"valueRaw"`
+	Name  string      `json:"name"`
+	Type  string      `json:"type"`
+	Value interface{} `json:"value"`
 }
 
 type EventParam struct {
-	Type     string      `json:"type"`
-	Value    interface{} `json:"value"`
-	ValueRaw string      `json:"valueRaw"`
+	Type  string      `json:"type"`
+	Value interface{} `json:"value"`
 }

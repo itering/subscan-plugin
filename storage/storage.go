@@ -24,8 +24,8 @@ type DB interface {
 	AddUniqueIndex(model interface{}, indexName string, columns ...string)
 
 	Create(record interface{}) error
-	Update(model interface{}, query map[string]interface{}, attr map[string]interface{}) error
-	Delete(model interface{}, query map[string]interface{}) error
+	Update(model interface{}, query interface{}, attr map[string]interface{}) error
+	Delete(model interface{}, query interface{}) error
 }
 
 type Block struct {

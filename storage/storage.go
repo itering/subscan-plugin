@@ -11,11 +11,15 @@ type Dao interface {
 	RPCPool() *websocket.PoolConn
 }
 
+type Option struct {
+	PluginPrefix string
+}
+
 // DB interface
 type DB interface {
 	// Can query database all tables data
 	// query
-	FindBy(record interface{}, query interface{}) bool
+	FindBy(record interface{}, query interface{}, option *Option) bool
 
 	// Only can exec plugin relate tables
 	// Migration
@@ -26,6 +30,8 @@ type DB interface {
 	Create(record interface{}) error
 	Update(model interface{}, query interface{}, attr map[string]interface{}) error
 	Delete(model interface{}, query interface{}) error
+
+	Prefix() string
 }
 
 type Block struct {

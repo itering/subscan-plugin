@@ -23,7 +23,7 @@ func CreateExtrinsicError(db storage.DB, hash string, moduleError *model.Metadat
 
 func ExtrinsicError(db storage.DB, hash string) *model.ExtrinsicError {
 	var e model.ExtrinsicError
-	db.FindBy(&e, map[string]interface{}{"extrinsic_hash": hash})
+	db.FindBy(&e, map[string]interface{}{"extrinsic_hash": hash}, nil)
 	return &e
 }
 

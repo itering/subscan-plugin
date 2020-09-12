@@ -30,8 +30,6 @@ type DB interface {
 	Create(record interface{}) error
 	Update(model interface{}, query interface{}, attr map[string]interface{}) error
 	Delete(model interface{}, query interface{}) error
-
-	Prefix() string
 }
 
 type Block struct {

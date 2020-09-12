@@ -23,9 +23,9 @@ type DB interface {
 
 	// Only can exec plugin relate tables
 	// Migration
-	AutoMigration(model interface{})
-	AddIndex(model interface{}, indexName string, columns ...string)
-	AddUniqueIndex(model interface{}, indexName string, columns ...string)
+	AutoMigration(model interface{}) error
+	AddIndex(model interface{}, indexName string, columns ...string) error
+	AddUniqueIndex(model interface{}, indexName string, columns ...string) error
 
 	Create(record interface{}) error
 	Update(model interface{}, query interface{}, attr map[string]interface{}) error

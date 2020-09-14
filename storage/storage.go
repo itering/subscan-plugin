@@ -9,6 +9,7 @@ type Dao interface {
 	DB
 	SpecialMetadata(int) string
 	RPCPool() *websocket.PoolConn
+	SetPrefix(string)
 }
 
 type Option struct {

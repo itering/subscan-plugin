@@ -46,10 +46,18 @@ func (a *System) ProcessEvent(block *storage.Block, event *storage.Event, fee de
 
 func (a *System) Migrate() {
 	db := a.d
-	db.AutoMigration(&model.ExtrinsicError{})
-	db.AddUniqueIndex(&model.ExtrinsicError{}, "extrinsic_hash", "extrinsic_hash")
+	_ = db.AutoMigration(&model.ExtrinsicError{})
+	_ = db.AddUniqueIndex(&model.ExtrinsicError{}, "extrinsic_hash", "extrinsic_hash")
 }
 
 func (a *System) Version() string {
 	return "0.1"
+}
+
+func (a *System) SubscribeExtrinsic() []string {
+	return nil
+}
+
+func (a *System) SubscribeEvent() []string {
+	return nil
 }

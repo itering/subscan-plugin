@@ -7,8 +7,13 @@ import (
 
 type Dao interface {
 	DB
+	// Find spec metadata raw
 	SpecialMetadata(int) string
+
+	// Substrate websocket rpc pool
 	RPCPool() *websocket.PoolConn
+
+	// Plugin set prefix
 	SetPrefix(string)
 }
 
@@ -17,19 +22,25 @@ type Option struct {
 }
 
 // DB interface
+// Every query can be found here https://gorm.io/docs/
 type DB interface {
 	// Can query database all tables data
-	// query
+	// Query ** no prefix ** table default, option PluginPrefix can specify other plugin model
 	FindBy(record interface{}, query interface{}, option *Option) bool
 
 	// Only can exec plugin relate tables
 	// Migration
 	AutoMigration(model interface{}) error
+	// Add column Index
 	AddIndex(model interface{}, indexName string, columns ...string) error
+	// Add column unique index
 	AddUniqueIndex(model interface{}, indexName string, columns ...string) error
 
+	// Create one record
 	Create(record interface{}) error
+	// Update one or more column
 	Update(model interface{}, query interface{}, attr map[string]interface{}) error
+	// Delete one or more record
 	Delete(model interface{}, query interface{}) error
 }
 

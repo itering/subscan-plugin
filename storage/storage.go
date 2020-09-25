@@ -19,6 +19,9 @@ type Dao interface {
 
 type Option struct {
 	PluginPrefix string
+	PageSize int
+	Page int
+	Order string
 }
 
 // DB interface

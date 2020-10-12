@@ -19,9 +19,9 @@ type Dao interface {
 
 type Option struct {
 	PluginPrefix string
-	PageSize int
-	Page int
-	Order string
+	PageSize     int
+	Page         int
+	Order        string
 }
 
 // DB interface
@@ -29,7 +29,7 @@ type Option struct {
 type DB interface {
 	// Can query database all tables data
 	// Query ** no prefix ** table default, option PluginPrefix can specify other plugin model
-	FindBy(record interface{}, query interface{}, option *Option) bool
+	FindBy(record interface{}, query interface{}, option *Option) (int, bool)
 
 	// Only can exec plugin relate tables
 	// Migration

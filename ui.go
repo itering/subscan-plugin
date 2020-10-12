@@ -10,13 +10,15 @@ type UiConfig struct {
 			RequestAdaptor string `json:"requestAdaptor"`
 			Adaptor        string `json:"adaptor"`
 		} `json:"api"`
-		SyncLocation  bool     `json:"syncLocation"`
-		HeaderToolbar []string `json:"headerToolbar"`
-		Columns       []struct {
-			Name  string `json:"name"`
-			Label string `json:"label"`
-		} `json:"columns"`
+		SyncLocation  bool        `json:"syncLocation"`
+		HeaderToolbar []string    `json:"headerToolbar"`
+		Columns       []UiColumns `json:"columns"`
 	} `json:"body"`
+}
+
+type UiColumns struct {
+	Name  string `json:"name"`
+	Label string `json:"label"`
 }
 
 // https://baidu.gitee.io/amis/docs/concepts/schema

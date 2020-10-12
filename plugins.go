@@ -30,4 +30,7 @@ type Plugin interface {
 
 	// Plugins version
 	Version() string
+
+	// Aims UI config
+	UiConf() *UiConfig
 }

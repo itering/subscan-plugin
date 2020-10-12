@@ -5,8 +5,12 @@ The subscan plugin is an interface lib to [subscan-essentials](https://github.co
 
 ## Usage
 
-todo
+### gen plugin template
 
+```
+cd tools/gen-plugin && go build -o subscan-plugin
+./subscan-plugin staking
+```
 
 ## Install
 

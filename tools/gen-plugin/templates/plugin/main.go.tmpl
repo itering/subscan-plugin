@@ -1,10 +1,11 @@
-package main
+package {{.Name}}
 
 import (
+    ui "github.com/itering/subscan-plugin"
 	"github.com/itering/subscan-plugin/storage"
 	"github.com/itering/subscan-plugin/router"
-    "{{.Name}}/http"
-    "{{.Name}}/service"
+    "{{.ModPath}}{{.Name}}/http"
+    "{{.ModPath}}{{.Name}}/service"
 	"github.com/shopspring/decimal"
 )
 
@@ -28,11 +29,11 @@ func (a *{{.ModClass}}) InitHttp() []router.Http{
 	return http.Router(srv)
 }
 
-func (a *{{.ModClass}}) ProcessExtrinsic(block *storage.Block, extrinsic *storage.Extrinsic, events []storage.Event) error {
+func (a *{{.ModClass}}) ProcessExtrinsic(_ *storage.Block, _ *storage.Extrinsic,_ []storage.Event) error {
 	return nil
 }
 
-func (a *{{.ModClass}}) ProcessEvent(block *storage.Block, event *storage.Event, fee decimal.Decimal) error {
+func (a *{{.ModClass}}) ProcessEvent(_ *storage.Block,_ *storage.Event,_ decimal.Decimal) error {
 	return nil
 }
 
@@ -41,4 +42,16 @@ func (a *{{.ModClass}}) Migrate() {
 
 func (a *{{.ModClass}}) Version() string {
 	return "0.1"
+}
+
+func (a *{{.ModClass}}) UiConf() *ui.UiConfig {
+	return nil
+}
+
+func (a *{{.ModClass}}) SubscribeExtrinsic() []string{
+    return nil
+}
+
+func (a *{{.ModClass}}) SubscribeEvent() []string{
+    return nil
 }

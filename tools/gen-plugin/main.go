@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/gobuffalo/packr/v2"
+	"regexp"
 
 	"github.com/urfave/cli"
 	"io/ioutil"
@@ -46,6 +47,7 @@ type Plugin struct {
 	ModClass  string
 	ModPrefix string
 	path      string
+	ModPath   string
 }
 
 var p Plugin
@@ -61,6 +63,7 @@ func runNew(_ *cli.Context) (err error) {
 		p.path = filepath.Join(pwd, p.Name)
 	}
 	p.ModPrefix = p.Name
+	p.ModPath = modPath(p.path)
 	pathSlice := strings.Split(p.Name, "/")
 
 	p.Name = pathSlice[len(pathSlice)-1]
@@ -139,4 +142,33 @@ func upperCamel(s string) string {
 	}
 	s = strings.ToUpper(string(s[0])) + string(s[1:])
 	return s
+}
+
+func modPath(p string) string {
+	dir := filepath.Dir(p)
+	for {
+		if _, err := os.Stat(filepath.Join(dir, "go.mod")); err == nil {
+			content, _ := ioutil.ReadFile(filepath.Join(dir, "go.mod"))
+			mod := regexpReplace(`module\s+(?P<name>[\S]+)`, string(content), "$name")
+			name := strings.TrimPrefix(filepath.Dir(p), dir)
+			name = strings.TrimPrefix(name, string(os.PathSeparator))
+			if name == "" {
+				return fmt.Sprintf("%s/", mod)
+			}
+			return fmt.Sprintf("%s/%s/", mod, name)
+		}
+		parent := filepath.Dir(dir)
+		if dir == parent {
+			return ""
+		}
+		dir = parent
+	}
+}
+func regexpReplace(reg, src, temp string) string {
+	var result []byte
+	pattern := regexp.MustCompile(reg)
+	for _, submatches := range pattern.FindAllStringSubmatchIndex(src, -1) {
+		result = pattern.ExpandString(result, temp, src, submatches)
+	}
+	return string(result)
 }

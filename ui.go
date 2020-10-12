@@ -25,6 +25,6 @@ func (u *UiConfig) Init() {
 	u.Body.Type = "crud"
 	u.Body.SyncLocation = false
 	u.Body.HeaderToolbar = []string{}
-	u.Body.Api.RequestAdaptor = "return {\n ...api,\n data: {\n ...api.data, \n page: api.data.page - 1, \n row: api.data.perPage,}\n }"
-	u.Body.Api.Adaptor = "return {\n...payload,\n status: payload.code,\n data: {\n items: payload.data.%s,\n count: payload.data.count \n },\n msg: payload.message\n };"
+	u.Body.Api.RequestAdaptor = "return {...api, data: {...api.data, page: api.data.page - 1, row: api.data.perPage,} }"
+	u.Body.Api.Adaptor = "return {...payload, status: payload.code, data: {items: payload.data.%s, count: payload.data.count}, msg: payload.message };"
 }

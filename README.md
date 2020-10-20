@@ -39,6 +39,10 @@ func (a *Balance) UiConf() *plugin.UiConfig {
 go get github.com/itering/subscan-plugin
 ```
 
+## LICENSE
+
+GPL-3.0
+
 ## Resource
  
 - [subscan-essentials] https://github.com/itering/subscan-essentials

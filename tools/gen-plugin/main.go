@@ -140,7 +140,7 @@ func upperCamel(s string) string {
 	if len(s) == 0 {
 		return ""
 	}
-	s = strings.ToUpper(string(s[0])) + string(s[1:])
+	s = strings.ToUpper(string(s[0])) + s[1:]
 	return s
 }
 

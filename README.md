@@ -13,6 +13,13 @@ go get github.com/itering/subscan-plugin
 
 [tutorial](/tutorial.md)
 
+## Test
+
+```shell script
+go test ./... -v
+cd tools/gen-plugin && ./test_gen_tools.sh
+```
+
 ## LICENSE
 
 GPL-3.0

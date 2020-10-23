@@ -3,17 +3,14 @@
 
 The subscan plugin is an interface lib to [subscan-essentials](https://github.com/itering/subscan-essentials) plugin, and [Gen](https://github.com/itering/subscan-plugin/tree/master/tools) tool can automatically generate plugin templates
 
-## Usage
+## How it works
 
-### gen plugin template
+### UI
+The UI part is rely on [amis](https://github.com/baidu/amis/blob/master/README-en.md), a Low-Code frontend UI Framework, which allows us to develop various page via different components by only using JSON configuration.
 
-```
-cd tools/gen-plugin && go build -o subscan-plugin
-./subscan-plugin staking
-```
+First, plugin list is fetched via /api/scan/plugins. After that, user can click different plugin in navbar and will be redirected to the plugin page. When the page is mounted, we init amis using the plugin info in JSON format fetched via /api/scan/plugins/ui to generate corresponding view.
 
-### Example
-
+An example page using basic table view component is as follow.
 ```
 // plugin balance ui config in json format
 {
@@ -50,25 +47,18 @@ cd tools/gen-plugin && go build -o subscan-plugin
     ]
   }
 }
-
-// plugin balance UiConf
-func (a *Balance) UiConf() *plugin.UiConfig {
-	conf := new(plugin.UiConfig)
-	conf.Init()
-	conf.Body.Api.Method = "post"
-	conf.Body.Api.Url = "api/plugin/balance/accounts"
-	conf.Body.Api.Adaptor = fmt.Sprintf(conf.Body.Api.Adaptor, "list")
-	conf.Body.Columns = []plugin.UiColumns{
-		{Name: "address", Label: "address"},
-		{Name: "nonce", Label: "nonce"},
-		{Name: "balance", Label: "balance"},
-		{Name: "lock", Label: "lock"},
-	}
-	return conf
-}
 ```
+
 refer to [amis docs](https://baidu.gitee.io/amis/docs/index) for further config detail.
 
+## Usage
+
+### gen plugin template
+
+```
+cd tools/gen-plugin && go build -o subscan-plugin
+./subscan-plugin staking
+```
 
 ## Install
 
